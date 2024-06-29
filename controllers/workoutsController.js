@@ -38,4 +38,16 @@ router.delete('/:id', (req, res) => {
   }
 });
 
+router.put('/:id', (req, res) => {
+  const { id } = req.params;
+  const workoutIndex = workoutArray.findIndex((workout) => workout.id === +id);
+
+  if (workoutIndex !== -1) {
+    workoutArray[workoutIndex] = req.body;
+    res.redirect('/workouts');
+  } else {
+    res.status(404).send({ error: `Workout with id ${id} not found.` });
+  }
+});
+
 module.exports = router;
