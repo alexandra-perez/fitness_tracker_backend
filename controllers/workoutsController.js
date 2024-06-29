@@ -16,8 +16,14 @@ router.get('/:id', (req, res) => {
   if (workoutIndex !== -1) {
     res.status(200).send(workoutArray[workoutIndex]);
   } else {
-      res.status(404).json({error: `Workout with id ${id} not found.`})
+    res.status(404).json({ error: `Workout with id ${id} not found.` });
   }
+});
+
+router.post('/', (req, res) => {
+  const currentWorkout = { id: workoutArray.length + 1, ...req.body }; // create new ID for the workout
+  workoutArray.push(currentWorkout);
+  res.status(201).send(currentWorkout);
 });
 
 module.exports = router;
